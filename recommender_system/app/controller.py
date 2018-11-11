@@ -7,17 +7,16 @@ from app import app, db
 
 
 
-@app.route('/', methods=["GET"])
-def home():
-    showbooks = Books.query.all()
-    print(len(showbooks))
-    return render_template('Homepage.html', showbooks = showbooks)
+
+
+
+
 
 
 # Test to confirm link of Static and Template -SUCCESS
 # Test to test loggin in and homepage features -SUCCESS
 # Test to test showing popular books  -SUCCESS
-
+# Testing Registered to User Profile  -
 @app.route("/test", methods=['GET', 'POST'])
 def test():
     showbooks = Books.query.all()
@@ -26,21 +25,11 @@ def test():
 
 
 
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-
-    if request.method == 'POST':
-        usern =  request.form['username']
-        passw = request.form['your_pass']
-        if Users.query.filter_by(username= usern) and Users.query.filter_by(password = passw):
-            print 'You have been logged in!'
-            return redirect( url_for('viewbooks'))
-        else:
-            result = "invalid"
-            return render_template('sign_in.html', form = form, result=result)
-    return render_template('sign_in.html')
-
-
+@app.route('/', methods=["GET"])
+def home():
+    showbooks = Books.query.all()
+    print(len(showbooks))
+    return render_template('Homepage.html', showbooks = showbooks)
 
 @app.route('/register', methods=['POST','GET'])
 def register():
@@ -80,44 +69,47 @@ def register():
 
 	return render_template("register.html")
 
-@app.route('/sell', methods=['POST','GET'])
-def addbooks():
-	form = AddBooks()
-	if request.method == "POST":
-		if form.validate_on_submit():
-			isbn = form.isbn.data
-			booktitle = form.booktitle.data
-			bookauthor = form.bookauthor.data
-			yrpublished= form.yrpublished.data
-			publisher= form.publisher.data
-			imgurl1 = form.imgurl1.data
-			imgurl2 = form.imgurl2.data
-			imgurl3 = form.imgurl3.data
+@app.route("/login", methods=['GET', 'POST'])
+def login():
 
-			addbookForm = Books(isbn = isbn,
-								booktitle= booktitle,
-								bookauthor = bookauthor,
-								yrpublished= yrpublished,
-								publisher = publisher,
-								imgurl1 = imgurl1,
-								imgurl2 = imgurl2,
-								imgurl3 = imgurl3
-								)
-			db.session.add(addbookForm)
-			db.session.commit()
-			result = "Success! Book added! Please wait for a notification as we suggest a price for your book!"
-			return render_template("addbooks.html", form =form, result= result)
-	return render_template("addbooks.html", form =form)
-
-@app.route('/bookshelf', methods=['POST','GET'])
-def viewbooks():
-	showbooks = Books.query.all()
-	print(len(showbooks))
-	return render_template('index.html', showbooks = showbooks)
+    if request.method == 'POST':
+        usern =  request.form['username']
+        passw = request.form['your_pass']
+        if Users.query.filter_by(username= usern) and Users.query.filter_by(password = passw):
+            print 'You have been logged in!'
+            url = '/profile/' + str(usern)
+            return redirect(url)
+        else:
+            result = "invalid"
+            return render_template('sign_in.html', form = form, result=result)
+    return render_template('sign_in.html')
 
 
 
 
-@app.route('/console', methods=['POST','GET'])
-def admin():
-	return render_template('admin.html')
+@app.route('/profile/<usern>', methods=["GET"])
+def profile(usern):
+
+    showbooks = Books.query.all()
+    print(len(showbooks))
+
+    details = Users.query.filter_by(username= usern).first()
+    print(details)
+
+
+
+    return render_template('user_profile.html', details=details, showbooks = showbooks)
+
+
+# TO DO -- Sessionizing Logout and Login so that this would work
+@app.route('/logout', methods=["GET", "POST"])
+def logout():
+    result = 'Logged out!'
+    return render_template('logout.html', result = result)
+
+
+
+
+
+
+

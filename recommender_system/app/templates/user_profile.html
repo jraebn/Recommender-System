@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>RC | Profile</title>
+    <title>RC | Most Popular</title>
 
     <!-- Bootstrap core CSS -->
     <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -42,13 +42,16 @@
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#">Home</a>
             </li>            
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Recommended</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#popular">Popular</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#recommended">Recommended</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#suggest">Suggest</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#">Logout</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/logout">Logout</a>
             </li>
           </ul>
         </div>   
@@ -59,92 +62,77 @@
     <header class="masthead bg-primary text-white text-center">
       <div class="container">
         <img class="user-img mb-5 d-block mx-auto" src="../static/img/profile.jpg" alt="">
-        <h3 class="text-uppercase mb-0">BOBBY ESPINA</h1>
+        <h3 class="text-uppercase mb-0">{{ details.name }}</h1>
         <hr class="star-dark-2 mb-5">          
 <!--         <hr class="horizontal"> -->
-        <h5 class="font-weight-light mb-0">Web Developer &bull; Graphic Artist &bull; User Experience Designer</h2>
+        <h5 class="font-weight-light mb-0">{{ details.email }} &bull; {{ details.age }} &bull; {{ details.location }}</h2>
       </div>
     </header>
 
+
     <!-- Portfolio Grid Section -->
-    <section class="portfolio" id="portfolio">
+    <section class="portfolio" id="recommended">
       <div class="container">
-        <h4 class="text-center text-uppercase text-secondary mb-0">Recommended Books</h2>
+        <h4 class="text-center text-uppercase text-secondary mb-0">Recommendations</h2>
         <hr class="star-dark mb-5">
         <div class="row">
-          <div class="col-md-4 col-lg-2" style="width:50%;">
+
+                    {% for res in showbooks %}
+
+
+              
+               <div class="col-md-4 col-lg-2" style="width:50%;">
             <a class="portfolio-item d-block mx-auto" href="#">
               <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
                 <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
                   <i class="fas fa-search-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="../static/img/books/hp1.png" alt="">
+              <img class="img-fluid" src='{{ res.imgurl1}}' alt="">
+
             </a>
-          </div>
-          <div class="col-md-4 col-lg-2" style="width:50%;">
-            <a class="portfolio-item d-block mx-auto" href="#">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fas fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="../static/img/books/hp2.png" alt="">
-            </a>
-          </div>
-          <div class="col-md-4 col-lg-2" style="width:50%;">
-            <a class="portfolio-item d-block mx-auto" href="">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fas fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="../static/img/books/hp3.png" alt="">
-            </a>
-          </div>
-          <div class="col-md-4 col-lg-2" style="width:50%;">
-            <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-4">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fas fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="../static/img/books/hp4.png" alt="">
-            </a>
-          </div>
-          <div class="col-md-4 col-lg-2" style="width:50%;">
-            <a class="portfolio-item d-block mx-auto" href="#">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fas fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="../static/img/books/hp5.png" alt="">
-            </a>
-          </div>
-          <div class="col-md-4 col-lg-2" style="width:50%;">
-            <a class="portfolio-item d-block mx-auto" href="#">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fas fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="../static/img/books/hp6.png" alt="">
-            </a>
-          </div>
-          <div class="col-md-4 col-lg-2" style="width:50%;">
-            <a class="portfolio-item d-block mx-auto" href="#">
-              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
-                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
-                  <i class="fas fa-search-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="../static/img/books/hp7.jpg" alt="">
-            </a>
-          </div>          
+             <p>{{ res.booktitle}}</p>
+          </div>                     
+                     
+                    {% endfor %}  
+
+
+                   
         </div>
       </div>
     </section>
+
+
+
+    <!-- Recommendations Section -->
+        <!-- Portfolio Grid Section -->
+    <section class="portfolio" id="popular">
+      <div class="container">
+        <h4 class="text-center text-uppercase text-secondary mb-0">Most Popular Books</h4>
+        <hr class="star-dark mb-5">
+        <div class="row">
+
+                    {% for res in showbooks %}
+
+
+              
+               <div class="col-md-4 col-lg-2" style="width:50%;">
+            <a class="portfolio-item d-block mx-auto" href="#">
+              <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
+                <div class="portfolio-item-caption-content my-auto w-100 text-center text-white">
+                  <i class="fas fa-search-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src='{{ res.imgurl1}}' alt="">
+
+            </a>
+             <p>{{ res.booktitle}}</p>
+          </div>                     
+                     
+                    {% endfor %}  
+                    </div>
+</div>
+</section>
 
     <!-- About Section -->
 <!--     <section class="bg-primary text-white mb-0" id="about">

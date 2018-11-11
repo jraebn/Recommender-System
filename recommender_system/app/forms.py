@@ -15,6 +15,12 @@ class Register(Form):
 	password = PasswordField('Password ',[validators.DataRequired(),validators.Length(min=8,max=120)])
 	email= StringField('Email',[validators.DataRequired(),validators.Length(min=1, max = 255)])
 	name= StringField('Name',[validators.DataRequired(),validators.Length(min=1, max = 255)])
+
+	# REMOVED FOR SIMPLIFICATION
+	# birth= StringField('Name',[validators.DataRequired(),validators.Length(min=1, max = 255)])
+	# gender= StringField('Gender',[validators.DataRequired(),validators.Length(min=1, max = 255)])
+	# phone= StringField('Phone',[validators.DataRequired(),validators.Length(min=1, max = 255)])
+
 	location= StringField('Location',[validators.DataRequired(),validators.Length(min=1, max = 255)])
 	age= IntegerField('Age',[validators.DataRequired(),validators.required()])
 	submit = SubmitField("Register")

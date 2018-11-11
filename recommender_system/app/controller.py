@@ -9,13 +9,20 @@ from app import app, db
 
 @app.route('/', methods=["GET"])
 def home():
-	return render_template("landing.html")
+    showbooks = Books.query.all()
+    print(len(showbooks))
+    return render_template('Homepage.html', showbooks = showbooks)
 
 
-# Test to confirm link of Static and Template
+# Test to confirm link of Static and Template -SUCCESS
+# Test to test loggin in and homepage features -SUCCESS
+# Test to test showing popular books  -SUCCESS
+
 @app.route("/test", methods=['GET', 'POST'])
 def test():
-    return render_template('sign_in.html')
+    showbooks = Books.query.all()
+    print(len(showbooks))
+    return render_template('Homepage.html', showbooks = showbooks)
 
 
 
@@ -33,45 +40,45 @@ def login():
             return render_template('sign_in.html', form = form, result=result)
     return render_template('sign_in.html')
 
-@app.route("/admin", methods=['GET', 'POST'])
-def adminlogin():
-    form = Login()
-    if form.validate_on_submit():
-    	usern = form.username.data
-    	passw = form.password.data
-        if Users.query.filter_by(username= usern) and Users.query.filter_by(password = passw):
-            print 'You have been logged in!'
-            return redirect( url_for('viewbooks'))
-        else:
-            result = "Invalid - either you're not an admin or your creds are wrong"
-            return render_template('login_admin.html', form = form, result=result)
-    return render_template('login_admin.html', form = form)
 
-@app.route('/signup', methods=['POST','GET'])
+
+@app.route('/register', methods=['POST','GET'])
 def register():
-	form = Register()
+	
 	if request.method == "POST":
-		if form.validate_on_submit():
-			username = form.username.data
-			name = form.name.data
-			email = form.email.data
-			password = form.password.data
-			location = form.location.data
-			age = form.age.data
+			username = request.form['username']
+			name = request.form['name']
+			email = request.form['email']
+			password = request.form['pass']
+			# Missing to forms
+			# birth = request.form['birthday']
+			# gender = request.form['gender']
+			# phone = request.form['phone']
+			# -----
+			location = request.form['location']
+			age = request.form['age']
 
 
-			registerform = Users(username = username,
-								 name = name,
-								 password = password,
-								 email = email,
-								 location=location,
-								 age = age)
+			registerform = Users(
+								username = username,
+								name = name,
+								password = password,
+								email = email,
+								location=location,
+								age = age,
+
+								# REMOVED FOR SIMPLIFICATION
+								# birth = birth,
+								# gender = gender,
+								# phone = phone,
+
+								 )
 			db.session.add(registerform)
 			db.session.commit()
 			result = "Success! You can login now!"
-			return render_template("signup.html", form=form, result=result)
+			return render_template("register_success.html", result=result)
 
-	return render_template("signup.html", form=form)
+	return render_template("register.html")
 
 @app.route('/sell', methods=['POST','GET'])
 def addbooks():

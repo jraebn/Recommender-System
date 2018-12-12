@@ -1,5 +1,5 @@
 import models
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from forms import Login, Register, AddBooks
 from sqlalchemy import and_
 from models import Users, Books
@@ -109,7 +109,21 @@ def logout():
 
 
 
+@app.route('/api/search', methods=["GET"])
+def search():
 
+    dataf = request.args
+    
+    
+    showbooks = Books.query.filter(Books.booktitle.contains(dataf["keyword"])).all()
+    print(len(showbooks))
+    books = []
+    for n in showbooks:
+        books.append( {"ISBN" : n.isbn, "booktitle" : n.booktitle})
+    print (books)
+    
+
+    return jsonify({"status" : 200, "books" : books})
 
 
 

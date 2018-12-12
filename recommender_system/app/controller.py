@@ -125,5 +125,30 @@ def search():
 
     return jsonify({"status" : 200, "books" : books})
 
+@app.route('/api/book/<booktitle>', methods=["GET"])
+def bookdetailsapi(booktitle):
+
+        
+    showbooks = Books.query.filter_by(booktitle = booktitle).all()
+    books = []
+    for n in showbooks:
+        books.append( {"ISBN" : n.isbn, "booktitle" : n.booktitle})
+    print (books)
+    
+
+    return jsonify({"status" : 200, "books" : books})
+
+@app.route('/book/<booktitle>', methods=["GET"])
+def bookdetails(booktitle):
+
+        
+    showbooks = Books.query.filter_by(booktitle = booktitle).all()
+    books = []
+    for n in showbooks:
+        books.append( {"ISBN" : n.isbn, "booktitle" : n.booktitle})
+    print (books)
+    
+
+    return render_template('book_details.html', book = books)
 
 

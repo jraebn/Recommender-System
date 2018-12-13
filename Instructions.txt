@@ -1,0 +1,18 @@
+Instructions
+I got encountered some anomalies in git. Do this after you pull. -Dexter
+
+1.Rename __init__1 to __init__.
+2.Rename db1 to db.
+3.Rename forms1 to forms.
+4.Rename main1 to main.(Mao ni sa controller.py)
+5.Rename models1 to models.
+(1-5 are python files.)
+6.Rename index1 to index.
+7.Rename new_book1 to new_book.
+8.Rename recommendedbook1 to recommendedbook.
+(6-8 are html files.)
+9.Rename run1 to run.(This is a python file.)
+10.6-8 files are under templates folder.
+11.1-5 files and templates folder are under app folder.
+
+

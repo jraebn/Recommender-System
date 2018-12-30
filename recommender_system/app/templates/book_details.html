@@ -27,7 +27,7 @@
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
-
+    <link href="../static/customcss.css" rel="stylesheet">
   </head>
 
   <body id="page-top">
@@ -73,7 +73,7 @@
       <div class="book-details">
 
         <div class="col-md-4" style="max-width: 30%;">
-          <img class="details-info" src="../static/img/books/hp6.png" alt="">
+          <img id="img1" class="details-info" alt="">
           <div class="star">
           <span class="fa fa-star checked"></span>
           <span class="fa fa-star checked"></span>
@@ -86,18 +86,18 @@
 
 
         <div class="col-md-8">
-          <h3 class="my-3">Harry Potter and the Half Blood Prince</h3>  
+          <h3 id="booktitleheader" class="my-3"></h3>  
 
-          <p>As Death Eaters wreak havoc in both Muggle and Wizard worlds, Hogwarts is no longer a safe haven for students. Though Harry (Daniel Radcliffe) suspects there are new dangers lurking within the castle walls, Dumbledore is more intent than ever on preparing the young wizard for the final battle with Voldemort. Meanwhile, teenage hormones run rampant through Hogwarts, presenting a different sort of danger. Love may be in the air, but tragedy looms, and Hogwarts may never be the same again.</p>
+          <p id="bookdetailspar"></p>
 
-          <h6 class="font-weight-light mb-0">Author: J. K. Rowling</h5>
-          <h6 class="font-weight-light mb-0">Date Published: 16 July 2009</h5>
-          <h6 class="font-weight-light mb-0">Date Published: 16 July 2009</h5>
+          <h6 id="bookauthorheader" class="font-weight-light mb-0"></h5>
+          <h6 id="yrpublishedheader" class="font-weight-light mb-0"></h5>
+          <h6 id="publisherheader" class="font-weight-light mb-0"></h5>
 
 
           
           <br>
-          <h5 class="font-weight-light mb-0"><i class="fa fa-book" style="font-size:24px">&nbsp; Read the book <a href="http://www.gkkacurrent.com/wp-content/uploads/2018/01/Book-6-Harry-Potter-and-the-Half-Blood-Prince.pdf" target="_blank">here</a></i></h5>
+          <h5 class="font-weight-light mb-0"><i class="fa fa-book" style="font-size:24px">&nbsp; Read the book <a id="booklink"  target="_blank">here</a></i></h5>
 
         </div>
 
@@ -138,6 +138,11 @@
 
     <!-- Custom scripts for this template -->
     <script src="../static/js/freelancer.min.js"></script> 
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='customscripts.js') }}"></script>
+    <script>
+        document.onload = bookdetailer();
+    </script>
 
 
 

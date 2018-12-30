@@ -1,4 +1,3 @@
-import models
 from flask import Flask, render_template, request, redirect, url_for, jsonify
 from forms import Login, Register, AddBooks
 from sqlalchemy import and_
@@ -76,7 +75,7 @@ def login():
         usern =  request.form['username']
         passw = request.form['your_pass']
         if Users.query.filter_by(username= usern) and Users.query.filter_by(password = passw):
-            print 'You have been logged in!'
+            print ('You have been logged in!')
             url = '/profile/' + str(usern)
             return redirect(url)
         else:
@@ -108,47 +107,69 @@ def logout():
     return render_template('logout.html', result = result)
 
 
-
-@app.route('/api/search', methods=["GET"])
-def search():
-
-    dataf = request.args
+@app.route('/api/search/<keyword>', methods=["GET"])
+def search(keyword):
     
-    
-    showbooks = Books.query.filter(Books.booktitle.contains(dataf["keyword"])).all()
-    print(len(showbooks))
+    showbooks = Books.query.filter(Books.booktitle.ilike( "%" + keyword + "%" )).all()
+    print(showbooks)
     books = []
     for n in showbooks:
-        books.append( {"ISBN" : n.isbn, "booktitle" : n.booktitle})
-    print (books)
-    
-
+        books.append( {"ISBN" : n.isbn, "booktitle" : n.booktitle, "bookauthor" : n.bookauthor,
+            "yrpublished" : n.yrpublished, "publisher" : n.publisher, "imgurl1" : n.imgurl1,
+            "imgurl2" : n.imgurl2, "imgurl3" : n.imgurl3})
     return jsonify({"status" : 200, "books" : books})
 
 @app.route('/api/book/<booktitle>', methods=["GET"])
 def bookdetailsapi(booktitle):
 
         
-    showbooks = Books.query.filter_by(booktitle = booktitle).all()
+    showbooks = Books.query.filter_by(isbn = booktitle).all()
+    
     books = []
     for n in showbooks:
-        books.append( {"ISBN" : n.isbn, "booktitle" : n.booktitle})
-    print (books)
+        books.append( {"ISBN" : n.isbn, "booktitle" : n.booktitle, "bookauthor" : n.bookauthor,
+            "yrpublished" : n.yrpublished, "publisher" : n.publisher, "imgurl1" : n.imgurl1,
+            "imgurl2" : n.imgurl2, "imgurl3" : n.imgurl3})
     
-
+    
     return jsonify({"status" : 200, "books" : books})
+
+@app.route('/api/ratings/book/<booktitle>/<userid>', methods=["GET", "POST"])
+def bookratingssapi(booktitle, userid):
+    
+    if request.method ==  "POST":
+        dataf = request.args
+        ratingform = Rating(bookid = booktitle, userid = userid,
+            stars = dataf["stars"], comment = dataf["comment"])
+        
+        
+        db.session.add(ratingform)
+        db.session.commit()
+        
+        return jsonify({"status" : 200})
+    else:
+        show = Rating.query.filter_by(bookid = booktitle).all()
+    
+        ratings = []
+        for n in show:
+            ratings.append( {"ratingid" : n.ratingid, "bookid" : n.bookid, "userid" : n.userid,
+                "stars" : n.stars, "comment" : n.comment, "datepublished" : n.datepublished})
+        
+        return jsonify({"status" : 200, "ratings" : ratings})
+        
 
 @app.route('/book/<booktitle>', methods=["GET"])
 def bookdetails(booktitle):
 
         
-    showbooks = Books.query.filter_by(booktitle = booktitle).all()
+    showbooks = Books.query.filter_by(isbn = booktitle).all()
     books = []
     for n in showbooks:
         books.append( {"ISBN" : n.isbn, "booktitle" : n.booktitle})
-    print (books)
+    
     
 
     return render_template('book_details.html', book = books)
+
 
 

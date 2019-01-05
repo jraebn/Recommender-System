@@ -1,9 +1,13 @@
 from app import db
 from app import app
+from flask_login import UserMixin
 
 
 
-class Users(db.Model):
+
+
+        
+class Users(db.Model, UserMixin):
 	__tablename__ = "Users"
 	id= db.Column(db.Integer, primary_key =True)
 	name = db.Column(db.String(255))
@@ -13,16 +17,22 @@ class Users(db.Model):
 	location = db.Column(db.String(255))
 	age = db.Column(db.Integer)
 
-	def __init__(self,username,email,password,name, location,age):
+	def __init__(self,username,email,password,name, location,age, active=True):
 		self.username = username
 		self.email = email
 		self.password = password
 		self.name=name
 		self.location = location
 		self.age = age
+		self.active = active
 
 	def __repr__(self):
 		return '<User %r>' % self.username
+
+
+	# Required for administrative interface
+	def __unicode__(self):
+		return self.username
 
 class Books(db.Model):
 	__tablename__ = "Books"

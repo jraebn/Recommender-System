@@ -435,7 +435,7 @@ a:focus, a:hover, a:active {
 }
 
 .details-info{
-  width: 30%;
+  width: 60%;
   height: auto;
 }
 
@@ -452,7 +452,7 @@ a:focus, a:hover, a:active {
 }
 
 .star{
-  padding-left: 25%;
+  padding-left: 15%;
 }
 
 .read{

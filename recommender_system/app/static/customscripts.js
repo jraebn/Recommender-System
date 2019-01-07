@@ -24,4 +24,8 @@ function searchfunc() {
 
 function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 5070c8198a87a8385f6296abaf77b6e825c2490f

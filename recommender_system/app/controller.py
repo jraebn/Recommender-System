@@ -2,7 +2,8 @@ import models
 import flask_login
 from wtforms import PasswordField
 from flask_login import LoginManager, UserMixin, login_required, login_user, logout_user 
-from flask import Flask, render_template, request, redirect, url_for
+
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from forms import Login, Register, AddBooks
 from sqlalchemy import and_
 from models import Users, Books
@@ -29,10 +30,11 @@ def login1():
             return render_template('sign_in.html', form = form, result=result)
     return render_template('sign_in.html')
 
-# Test to confirm link of Static and Template -SUCCESS
-# Test to test loggin in and homepage features -SUCCESS
-# Test to test showing popular books  -SUCCESS
-# Testing Registered to User Profile  -
+# Test to confirm link of Static and Template -PASS
+# Test to test loggin in and homepage features -PASS
+# Test to test showing popular books  -PASS
+# Testing Registered to User Profile  - PASS
+# Testing Make sure that each click goes to specific route -
 @app.route("/test", methods=['GET', 'POST'])
 def test():
     showbooks = Books.query.all()
@@ -89,18 +91,26 @@ def register():
 
 
 
+
 @app.route('/profile/<usern>', methods=["GET"])
 def profile(usern):
 
-    showbooks = Books.query.all()
+    showbooks = Books.query()
     print(len(showbooks))
 
     details = Users.query.filter_by(username= usern).first()
     print(details)
-
-
-
     return render_template('user_profile.html', details=details, showbooks = showbooks)
+
+
+
+# 0002005018
+@app.route('/profile/book/<isbn>', methods=["GET"])
+def specific_book(isbn):
+
+    showbooks = Books.query.filter_by(isbn=str(isbn))
+
+    return render_template('book_details.html', showbooks = showbooks)
 
 
 # TO DO -- Sessionizing Logout and Login so that this would work
@@ -111,6 +121,9 @@ def logout():
 
 
 
+# @app.route('/api/search', methods=["GET"])
+# def search():
+
 
 @app.route('/admin', methods=['POST','GET'])
 def admin():
@@ -118,13 +131,9 @@ def admin():
 
 
 
-
-
-
-# REX
-
 @app.route('/api/search', methods=["GET"])
 def search():
+
 
     dataf = request.args
     

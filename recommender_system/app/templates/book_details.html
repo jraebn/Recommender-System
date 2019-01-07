@@ -70,10 +70,13 @@
       </h1> -->
 
       <!-- Portfolio Item Row -->
+
+                {% for res in showbooks %}
+
       <div class="book-details">
 
         <div class="col-md-4" style="max-width: 30%;">
-          <img class="details-info" src="../static/img/books/hp6.png" alt="">
+          <img class="details-info" src="{{ res.imgurl1}}" alt="">
           <div class="star">
           <span class="fa fa-star checked"></span>
           <span class="fa fa-star checked"></span>
@@ -85,22 +88,24 @@
         </div>
 
 
+
         <div class="col-md-8">
-          <h3 class="my-3">Harry Potter and the Half Blood Prince</h3>  
+          <h3 class="my-3">{{ res.booktitle}}</h3>  
 
-          <p>As Death Eaters wreak havoc in both Muggle and Wizard worlds, Hogwarts is no longer a safe haven for students. Though Harry (Daniel Radcliffe) suspects there are new dangers lurking within the castle walls, Dumbledore is more intent than ever on preparing the young wizard for the final battle with Voldemort. Meanwhile, teenage hormones run rampant through Hogwarts, presenting a different sort of danger. Love may be in the air, but tragedy looms, and Hogwarts may never be the same again.</p>
+          <p></p>
 
-          <h6 class="font-weight-light mb-0">Author: J. K. Rowling</h5>
-          <h6 class="font-weight-light mb-0">Date Published: 16 July 2009</h5>
-          <h6 class="font-weight-light mb-0">Date Published: 16 July 2009</h5>
+          <h6 class="font-weight-light mb-0">Author: {{ res.bookauthor}}</h5>
+          <h6 class="font-weight-light mb-0">Date Published: {{ res.yrpublished}}</h5>
+          <h6 class="font-weight-light mb-0">Publisher: {{ res.publisher}}</h5>
 
 
           
           <br>
           <h5 class="font-weight-light mb-0"><i class="fa fa-book" style="font-size:24px">&nbsp; Read the book <a href="http://www.gkkacurrent.com/wp-content/uploads/2018/01/Book-6-Harry-Potter-and-the-Half-Blood-Prince.pdf" target="_blank">here</a></i></h5>
+         
 
-        </div>
-
+         </div>
+ {% endfor %} 
 <!--         <fieldset class="rating">
             <input type="radio" id="star5" name="rating" value="5" /><label class = "full" for="star5" title="Awesome - 5 stars"></label>
             <input type="radio" id="star4half" name="rating" value="4 and a half" /><label class="half" for="star4half" title="Pretty good - 4.5 stars"></label>

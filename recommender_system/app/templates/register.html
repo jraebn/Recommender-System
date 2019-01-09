@@ -33,7 +33,7 @@
                 <div class="card-hdng"></div>
                 <div class="card-body">
                     <h2 class="title">Registration Info</h2>
-                    <form method="POST">
+                    <form enctype="multipart/form-data" method="POST">
 
                         <div class="input-group">
                             <input class="input--style-3" type="text" placeholder="User" name="username">
@@ -57,7 +57,12 @@
                         </div>
                          <div class="input-group">
                             <input class="input--style-3" type="text" placeholder="Age" name="age">
-                        </div>                       
+                        </div>  
+                        <div class="input-group">
+                            <input type=file name=file>
+                                     
+                      </div> 
+
                         <div class="submit">
                             <button class="btn btn--pill btn--white" type="submit">Submit</button>
                         </div>

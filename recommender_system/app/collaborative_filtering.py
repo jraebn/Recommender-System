@@ -1,13 +1,25 @@
 
 # Implementation of collaborative filtering recommendation engine
 
-import time
+import time, json
 
-from recommendation_data import dataset
+# from recommendation_data import dataset
+
+# from recommendation_data import dataset
 from math import sqrt
 
 start = time.time()
 
+# def get_dataset():
+#     result = []
+#     with open('file3.txt', 'r') as f:
+#         x = f.readlines()
+#     ds = x[0]
+#     d = json.loads(ds)
+
+#     return d
+
+# dataset = get_dataset()
 
 def similarity_score(person1,person2):
 	
@@ -35,7 +47,7 @@ def similarity_score(person1,person2):
 
 
 
-def person_correlation(person1,person2):
+def person_correlation(dataset, person1,person2):
 
 	# To get both rated items
 	ratedbyboth = {}
@@ -78,7 +90,7 @@ def most_similar_users(person,number_of_users):
 	scores.reverse()
 	return scores[0:number_of_users]
 
-def user_reommendations(person):
+def user_reommendations(dataset, person):
 
 	# Gets recommendations for a person by using a weighted average of every other user's rankings
 	totals = {}
@@ -88,7 +100,7 @@ def user_reommendations(person):
 		# don't compare me to myself
 		if other == person:
 			continue
-		sim = person_correlation(person,other)
+		sim = person_correlation(dataset, person,other)
 
 
 		# ignore scores of zero or lower
@@ -119,5 +131,5 @@ def user_reommendations(person):
 
 
 
-print(user_reommendations('Michael'))
+# print(user_reommendations('276762'))
 

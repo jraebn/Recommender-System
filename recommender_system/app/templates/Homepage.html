@@ -73,6 +73,11 @@
     }
 
     .show {display:block;}
+
+    .bgimg {
+        background-image: url('../static/img/image-3.png');
+    }
+
     </style>
   </head>
 
@@ -89,38 +94,24 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#">Home</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/">Home</a>
             </li>            
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#portfolio">Popular</a>
             </li>
-            <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#recommended">Recommended</a>
-            </li>
-            <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#suggest">Suggest</a>
-            </li>
-            <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/login">Login</a>
-            </li>
-<<<<<<< HEAD
 
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/login">Login</a>
             </li>
+
+
       <li class="nav-item mx-0 mx-lg-1">
-=======
-			<li class="nav-item mx-0 mx-lg-1">
->>>>>>> 5070c8198a87a8385f6296abaf77b6e825c2490f
+
                 <div class="dropdown">
                   <button onclick="myFunction();" class="dropbtn">Search</button>
                   <div id="myDropdown" class="dropdown-content">
                     <form id="search-form" action="/results">
-<<<<<<< HEAD
-          
-=======
-				  
->>>>>>> 5070c8198a87a8385f6296abaf77b6e825c2490f
+
                       <input id="search" oninput="searchfunc();" name="search_query" type="text" spellcheck="false" placeholder="Search"  role="combobox" class="searchbox" >
                       <!-- <button type="submit"><i class="fa fa-search"></i></button> -->
                     </form>
@@ -128,14 +119,7 @@
                     </ul>
                   </div>
                 </div>
-<<<<<<< HEAD
-        
 </li>
-=======
-				
-			</li>
->>>>>>> 5070c8198a87a8385f6296abaf77b6e825c2490f
-          </ul>
         </div>   
       </div>
     </nav>
@@ -143,6 +127,7 @@
     <!-- Header -->
     <header class="masthead bg-primary text-white text-center">
       <div class="container">
+     
 
 <!--         <img class="user-img mb-5 d-block mx-auto" src="../static/img/profile.jpg" alt="">
  -->
@@ -151,6 +136,8 @@
 <!--         <hr class="horizontal"> -->
         <h5 class="font-weight-light mb-0">"Our system will evaluate your profile - look for some books and then we'll recommend you ALL THE BOOKS THAT YOU WILL LIKE!</h2>
       </div>
+
+
     </header>
 
     <!-- Portfolio Grid Section -->
@@ -171,7 +158,8 @@
                   <i class="fas fa-search-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src='{{ res.imgurl1}}' alt="">
+
+              <a href="http://localhost:5000/book/{{res.isbn}}"><img class="img-fluid" src='{{ res.imgurl1}}' ></a>
 
             </a>
              <p>{{ res.booktitle}}</p>
@@ -232,50 +220,8 @@
     </section> -->
 
     <!-- Contact Section -->
-<<<<<<< HEAD
 
-=======
-    <section id="suggest">
-      <div class="container">
-        <h4 class="text-center text-uppercase text-secondary mb-0">Suggest a Book</h2>
-        <hr class="star-dark mb-5">
-        <div class="row">
-          <div class="col-lg-8 mx-auto">
-            <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
-            <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-            <form name="sentMessage" id="contactForm" novalidate="novalidate">
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Book Title</label>
-                  <input class="form-control" id="name" type="text" placeholder="Book Title" required="required" data-validation-required-message="Please enter the title.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Genre</label>
-                  <input class="form-control" id="genre" type="text" placeholder="Genre" required="required" data-validation-required-message="Please enter the genre.">
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Description</label>
-                  <textarea class="form-control" id="message" rows="5" placeholder="Description" required="required" data-validation-required-message="Please enter description."></textarea>
-                  <p class="help-block text-danger"></p>
-                </div>
-              </div>
-              <br>
-              <div id="success"></div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Send</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
->>>>>>> 81d54312ba87399c86e3efc2462bd5fde0a531e2
+  
 
     <!-- Footer -->
 <!--     <footer class="footer text-center">

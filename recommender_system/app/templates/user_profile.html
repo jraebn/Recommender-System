@@ -24,6 +24,11 @@
     <!-- Custom styles for this template -->
     <link href="../static/css/freelancer.css" rel="stylesheet">
 
+    <style>
+      article, aside, figure, footer, header, hgroup, 
+      menu, nav, section { display: block; }
+  </style> 
+
   </head>
 
   <body id="page-top">
@@ -39,16 +44,16 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#">Home</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/profile/{{details.username}}">Profile</a>
             </li>            
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#popular">Popular</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/profile/{{details.username}}#popular">Popular</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#recommended">Recommended</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/profile/{{details.username}}#recommended">Recommended</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
-              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#suggest">Suggest</a>
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/profile/{{details.username}}#suggest">Suggest</a>
             </li>
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="/logout">Logout</a>
@@ -61,7 +66,16 @@
     <!-- Header -->
     <header class="masthead bg-primary text-white text-center">
       <div class="container">
-        <img class="user-img mb-5 d-block mx-auto" src="../static/img/profile.jpg" alt="">
+
+        <img class="user-img mb-5 d-block mx-auto" src="../static/img/{{details.img}}" alt="">
+
+<!--   <input type='file' onchange="readURL(this);" />
+  <img id="blah" src="#" alt="your image" /> -->
+
+
+
+
+
         <h3 class="text-uppercase mb-0">{{ details.name }}</h1>
         <hr class="star-dark-2 mb-5">          
 <!--         <hr class="horizontal"> -->
@@ -76,8 +90,8 @@
         <h4 class="text-center text-uppercase text-secondary mb-0">Recommendations</h2>
         <hr class="star-dark mb-5">
         <div class="row">
-
-                    {% for res in showbooks %}
+          {% if recommended|length != 0  %}
+                    {% for res in recommended %}
 
 
               
@@ -88,7 +102,7 @@
                   <i class="fas fa-search-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src='{{ res.imgurl1}}' alt="">
+              <a href="http://localhost:5000/profile/{{details.username}}/book/{{res.isbn}}"><img class="img-fluid" src='{{ res.imgurl1}}' ></a>
 
             </a>
              <p>{{ res.booktitle}}</p>
@@ -97,6 +111,10 @@
                     {% endfor %}  
 
 
+          {% else %}
+                  <h3 style="text-align:center;">You have no recommendations for today. Rate more books to get recommendations</h3> 
+
+          {% endif %}
                    
         </div>
       </div>
@@ -123,7 +141,7 @@
                   <i class="fas fa-search-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src='{{ res.imgurl1}}' alt="">
+              <a href="http://localhost:5000/profile/{{details.username}}/book/{{res.isbn}}"><img class="img-fluid" src='{{ res.imgurl1}}' ></a>
 
             </a>
              <p>{{ res.booktitle}}</p>
@@ -165,32 +183,72 @@
           <div class="col-lg-8 mx-auto">
             <!-- To configure the contact form email address, go to mail/contact_me.php and update the email address in the PHP file on line 19. -->
             <!-- The form should work on most web servers, but if the form is not working you may need to configure your web server differently. -->
-            <form name="sentMessage" id="contactForm" novalidate="novalidate">
+            <form name="sentMessage" id="contactForm" enctype="multipart/form-data" novalidate="novalidate">
+
+
+                <div class="control-group">
+                <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                  <label>ISBN</label>
+                  <input class="form-control" name="isbn" id="name" type="text" placeholder="ISBN" required="required" >
+                  <p class="help-block text-danger"></p>
+                </div>
+              </div>
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
                   <label>Book Title</label>
-                  <input class="form-control" id="name" type="text" placeholder="Book Title" required="required" data-validation-required-message="Please enter the title.">
+                  <input class="form-control" name="title" id="title" type="text" placeholder="Book Title" required="required" >
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
-              <div class="control-group">
+
+
+                <div class="control-group">
                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                  <label>Genre</label>
-                  <input class="form-control" id="email" type="email" placeholder="Genre" required="required" data-validation-required-message="Please enter the genre.">
+                  <label>Author</label>
+                  <input class="form-control" name="author" id="author" type="text" placeholder="Author" required="required" >
                   <p class="help-block text-danger"></p>
                 </div>
               </div>
-              <div class="control-group">
+
+           <div class="control-group">
+                <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                  <label>Year Published</label>
+                  <input class="form-control" name="yrpub" id="yrpub" type="text" placeholder="Year Published" required="required" >
+                  <p class="help-block text-danger"></p>
+                </div>
+              </div>
+
+
+                <div class="control-group">
+                <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                  <label>Publisher</label>
+                  <input class="form-control" name="pub" id="pub" type="text" placeholder="Publisher" required="required" >
+                  <p class="help-block text-danger"></p>
+                </div>
+              </div>
+
+
+                <div class="control-group">
+                <div class="form-group floating-label-form-group controls mb-0 pb-2">
+                  <label>Upload Image</label>
+                  <input type=file name=file>
+                  <p class="help-block text-danger"></p>
+                </div>
+              </div>
+
+
+<!--               <d
+<!--               <div class="control-group">
                 <div class="form-group floating-label-form-group controls mb-0 pb-2">
                   <label>Description</label>
                   <textarea class="form-control" id="message" rows="5" placeholder="Description" required="required" data-validation-required-message="Please enter description."></textarea>
                   <p class="help-block text-danger"></p>
                 </div>
-              </div>
+              </div> -->
               <br>
               <div id="success"></div>
               <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">Send</button>
+                <button type="submit" class="btn btn-primary btn-xl" >Submit</button>
               </div>
             </form>
           </div>
@@ -429,6 +487,24 @@
 
     <!-- Custom scripts for this template -->
     <script src="../static/js/freelancer.min.js"></script> 
+
+    <script type="text/javascript">
+      function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    </script>
 
   </body>
 
